@@ -1,0 +1,70 @@
+url = "/"
+layout = "default"
+title = "WildPosh"
+is_hidden = 0
+meta_description = "homepage desc"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[article_highlights]
+maxItems = 10
+title = "Latest News"
+baseUrl = "/news"
+templates = "template6"
+thumb_width = 261
+thumb_height = 184
+
+[jumbotron intro]
+jumbotron = "intro"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+<?php
+use Pensoft\Calendar\Models\Entry;
+use Carbon\Carbon;
+function onStart(){
+    $this['entries'] = Entry::where('end', '>', Carbon::now())->where('show_on_timeline', true)->where('is_internal', false)->orderBy('start', 'asc')->take(3)->get();
+}
+?>
+==
+<!-- latest from news -->
+<div class="container-fluid insects">
+    {% component 'intro' %}
+</div>
+
+
+<!-- latest from news -->
+<div class="container-fluid bg-secondary">
+	{% component 'article_highlights' %}
+</div>
+
+{% if entries.count %}
+<div class="container upcoming_events_container">
+    <h1 class="display-1">Latest Events</h1>
+    <div class="row events_container">
+        {% for event in entries %}
+        <div class="entry_item col-md-3 col-xs-12">
+            <div class="date_container">
+                <div class="date_wrapper">
+                    <span class="date_day">{% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}</span>
+                    <span class="date_month">{{event.start|date("M")}}</span>
+                    <span class="date_year">{{event.start|date("Y")}}</span>
+                </div>
+                {{event.place}}
+            </div>
+            <h3>{{event.title|raw}}</h3>
+            <a href="{{'events'|page}}/{{event.slug}}" class="read_more pure btn">Read more</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if this.theme.subscribe %}
+<div class="container center-xs subscriber">
+    <p>Join our community by subscribing to our newsletter.</p>
+    <p><a href="{{this.theme.subscribe}}" target="_blank" class="btn-subscribe">SUBSCRIBE</a></p>
+</div>
+{% endif %}

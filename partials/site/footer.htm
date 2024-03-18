@@ -1,0 +1,107 @@
+[menu about_menu]
+start = "id-13"
+activeNode = 0
+listItemClasses = "footer-menu-item"
+primaryClasses = "footer-menu"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 1
+
+[menu latest_menu]
+start = "id-17"
+activeNode = 0
+listItemClasses = "footer-menu-item"
+primaryClasses = "footer-menu"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 1
+
+[cookieConsent]
+message = "This website uses cookies to ensure you get the best experience on our website."
+dismiss = "Got it!"
+learnMore = "More info"
+link = "/privacy-policy"
+theme = "dark-bottom"
+
+[jumbotron footer_disclimer]
+jumbotron = "footer-disclaimer"
+background = "transperant"
+templates = "template3"
+description_limit = 0
+==
+<div class="container-fluid border-box flowers-background {{this.page.id}}"></div>
+<div class="container-fluid border-box dark-background">{% component 'cookieConsent' %}
+    <div class="container">
+        <div class="row top-xs between-xs footer-menu-container">
+            <div class="col-md-6 col-xs-12 footer-right-border">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 start-md center-xs">
+                        <img class="project_footer_logo" src="{{ 'assets/images/WILDPOSH-LOGO-white.svg'|theme }}" />
+                    </div>
+                </div>
+                <div class="row between-xs">
+                    <div class="col-xs-12 col-md-3 start-md center-xs col-sm-6 start-sm">
+                        {% component 'about_menu' %}
+                    </div>
+                    <div class="col-xs-12 col-md-3 start-md center-xs col-sm-6 start-sm">
+                        {% component 'latest_menu' %}
+                    </div>
+                    <div class="col-xs-12 col-md-5 start-md center-xs col-sm-6 start-sm">
+                        <div class="social-networks">
+                            Follow WildPosh<br>
+                            <div class="icons mt-1">
+                                {% if enable_facebook and facebook_url %}
+                                <a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook normal hexagon" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_twitter and twitter_url %}
+                                <a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter normal hexagon" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_linkedin and linkedin_url %}
+                                <a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin normal hexagon" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_youtube and youtube_url %}
+                                <a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube normal hexagon" target="_blank"></a>
+                                {% endif %}
+                                {% if enable_instagram and instagram_url %}
+                                <a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram normal hexagon" target="_blank"></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row between-xs">
+                    <div class="col-xs-12 col-md-7 start-md center-xs col-sm-6 start-sm">
+                        {% if this.theme.subscribe %}
+                            <a href="{{this.theme.subscribe}}" target="_blank" class="btn-subscribe">Subscribe to newsletter</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-12 col-md-5 start-md center-xs col-sm-6 start-sm">
+                        Contact<br>
+                        <a href="mailto:denis.michez@umons.ac.be" target="_blank">denis.michez@umons.ac.be</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-xs-12 footer-disclaimer-container">
+                {% if (footer_funds_flag != null or footer_funds_text != '') %}
+                <div class="funding flex-column my-1 my-lg-0 flex-lg-row px-1 align-items-center col-sm col-xs-12">
+                    {% if footer_funds_flag %}
+                    <img class="text mr-0 mr-lg-1" style="height:60px;" src="{{ footer_funds_flag }}"/>
+                    {% endif %}
+                </div>
+                <div class="funding-text">
+                    {% component 'footer_disclimer' %}
+                </div>
+                {% endif %}
+                <div class="row between-xs middle-xs">
+                    <div class="col-sm-4 col-xs-12 start-md center-xs"><a href="{'privacy-policy'|page}">Privacy Policy</a></div>
+                    <div class="col-md-8 col-xs-12">
+                        <div class="powered-by my-1 my-lg-0 px-1 end-sm center-xs">
+                        <span>Designed and powered by <a href="https://pensoft.net/" target="_blank">
+                            <img class="pensoft_logo" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" /></a>
+                        </span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

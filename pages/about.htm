@@ -1,0 +1,80 @@
+url = "/about"
+layout = "default"
+title = "About"
+is_hidden = 0
+meta_description = "about page"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[jumbotron background]
+jumbotron = "background"
+title = 1
+background = "transperant"
+templates = "template1"
+description_limit = 0
+
+[jumbotron objectives]
+jumbotron = "objectives"
+title = 1
+background = "unset"
+templates = "template1"
+description_limit = 0
+
+[accordion]
+maxItems = 15
+accordion = 1
+elementId = "structure"
+active = 5
+collapsible = "true"
+heightStyle = "content"
+iconsHeader = "ui-icon-carat-1-se"
+iconsHeaderActive = "ui-icon-carat-1-se"
+templates = "template3"
+
+[jumbotron actions]
+jumbotron = "actions"
+title = 1
+background = "transperant"
+templates = "template1"
+description_limit = 0
+
+[siteSearchInclude]
+==
+{% component 'siteSearchInclude' %}
+<h1 class="underline">About</h1>
+<div class="container">
+    <div class="row" id="about">
+        <div class="col-md-6 col-xs-12">
+             <div class="background-image">
+             <img src="{{'about illustration.svg'|media}}" style="width: 80%;">
+             </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="background blue">
+                {% component 'background' %}
+             </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid bg-secondary" id="objectives">
+    <div class="container">
+        <div class="row top-xs">
+            <div class="col-md-6 col-xs-12 objectives yellow">
+                {% component 'objectives' %}
+            </div>
+            <div class="col-md-6 col-xs-12 activities blue">
+                {% component 'actions' %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="work-packages">
+    <div class="row top-xs">
+        <div class="col-md-12 col-xs-12 work_packages blue">
+            {% component 'accordion' %}
+        </div>
+    </div>
+    <div class="schema">
+    </div>
+</div>

@@ -1,0 +1,118 @@
+
+.partners_list{
+    display: flex!important;
+    justify-content: space-between;
+    width: 100%;
+    .breakpoint-large-down({
+        justify-content: center;
+    });
+}
+.partner-item{
+    width: 97%;
+    max-width: 100%;
+    margin-bottom: 40px;
+    border-radius: 12px;
+    padding: 0;
+    background: @secondary-color;
+
+    .partner_title{
+        font-size: 20px;
+        line-height: 32px;
+        a{
+            color: @link-color;
+            background: url("../../assets/images/");
+        }
+    }
+    .partner_logo{
+        padding: 20px 0 0 20px;
+        img{
+            width: 150px;
+            height: 67px;
+            object-fit: contain;
+            object-position: left;
+            .breakpoint-large-down({
+                width: auto;
+                max-width: 100%;
+                object-fit: contain;
+            });
+        }
+
+    }
+
+    .partner_description{
+        padding: 20px;
+        position: relative;
+        h4{
+            min-height: 62px;
+            a{
+                background: url("../../assets/images/external link.svg") right no-repeat;
+                padding-right: 30px;
+
+            }
+        }
+    }
+
+    .logo_and_link{
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+    }
+
+    .partner_link{
+        background: @dark-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-family: Comfortaa;
+        border-radius: 0 12px 0 12px;
+        align-self: flex-start;
+        font-size: 16px;
+        padding: 4px 0;
+    }
+    .read_more{
+        align-self: start;
+    }
+
+}
+
+.see_all_partners_link{
+    width: 100%;
+}
+
+.partners-insider{
+    margin-top: 50px;
+    a{
+        font-size: 22px;
+        font-weight: bold;
+        color: #102441;
+        margin-bottom: 20px;
+    }
+    .member_item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img{
+            width: 193px;
+            height: 193px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+        }
+        .member_name{
+            width: 193px;
+            text-align: center;
+            align-items: center;
+            display: block;
+            margin: 20px auto 40px auto;
+            color: #102441;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    }
+
+}
+
+
