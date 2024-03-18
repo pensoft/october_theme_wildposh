@@ -1,1 +1,1 @@
-# october_theme_restcoast
+# october_theme_wildposh
