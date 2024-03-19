@@ -23,7 +23,7 @@ function onStart(){
             <div class="row partners_list">
                 {% for k, partner in partners %}
 
-                    <div class="partner-item key_{{k}}">
+                    <div class="partner-item key_{{k}}" data-aos="fade-up">
                         <div class="row middle-xs logo_and_link">
                             <div class="col-xs-8 col-md-8 partner_logo"><a href="{{partner.instituion_url}}" target="_blank">
                                 <img alt="{{ partner.instituion }}" src="{{partner.cover.thumb(150,auto,{'mode':'crop'})}}"></a></div>

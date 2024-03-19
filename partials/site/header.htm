@@ -85,8 +85,7 @@ numberOfLevels = 2
         {% if page_id == 'home' and tag_line%}
         <div class="container">
             <div class="intro">
-                <div class="logo_main"></div>
-                <p>{{tag_line|raw}}</p>
+                <p data-aos="fade-up">{{tag_line|raw}}</p>
                 <p><a href="{{'about'|page}}" class="read_more">Find out more</a> </p>
                 <div class="social_media">
                     {% if this.theme.twitter_url %}
