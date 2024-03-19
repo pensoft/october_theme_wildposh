@@ -41,7 +41,7 @@ function onStart(){
 </div>
 
 {% if entries.count %}
-<div class="container upcoming_events_container" data-aos="fade-right">
+<div class="container upcoming_events_container" data-aos="fade-up">
     <h1 class="display-1">Latest Events</h1>
     <div class="row events_container">
         {% for event in entries %}
@@ -63,7 +63,7 @@ function onStart(){
 {% endif %}
 
 {% if this.theme.subscribe %}
-<div class="container center-xs subscriber" data-aos="fade-left">
+<div class="container center-xs subscriber" data-aos="fade-up">
     <p>Join our community by subscribing to our newsletter.</p>
     <p><a href="{{this.theme.subscribe}}" target="_blank" class="btn-subscribe">SUBSCRIBE</a></p>
 </div>

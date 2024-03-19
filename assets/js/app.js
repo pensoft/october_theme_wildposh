@@ -170,6 +170,12 @@ $(document).ready(function() {
 	$('.entry_item').attr('data-aos', 'fade-up');
 	$('.profile-item').attr('data-aos', 'fade-up');
 
+    if (width >= 1024) {
+        $('#objectives').attr('data-aos', 'fade-left');
+        $('#work-packages').attr('data-aos', 'fade-right')
+        $('.subscriber').attr('data-aos', 'fade-right')
+        $('.insects').attr('data-aos', 'fade-right')
+    }
 
 	$('.see_all_partners_link').hide();
 
