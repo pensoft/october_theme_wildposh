@@ -171,7 +171,7 @@ $(document).ready(function() {
 	$('.profile-item').attr('data-aos', 'fade-up');
 
     if (width >= 1024) {
-        $('#objectives').attr('data-aos', 'fade-left');
+        $('#objectives').attr('data-aos', 'fade-right');
         $('#work-packages').attr('data-aos', 'fade-right')
         $('.subscriber').attr('data-aos', 'fade-right')
         $('.insects').attr('data-aos', 'fade-right')
@@ -185,12 +185,12 @@ $(document).ready(function() {
 
 
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
-        '<a class="folder-background" style="display:flex; background: url(http://wildposh.pensoft.com/storage/app/media/working-documents-live.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/living-documents" title="Working documents (live)"></a>\n' +
+        '<a class="folder-background" style="display:flex; background: url(https://wildposh.eu/storage/app/media/working-documents-live.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/living-documents" title="Working documents (live)"></a>\n' +
         '<h3 class="card-header"><a href="/internal-repository/living-documents" title="Working documents (live)">Working documents (live)</a></h3>\n' +
         '</div>').insertAfter($('.card.internal').last());
 
     $('<div class="col-xs-12 col-sm-3 card internal no-border" style="margin-bottom: 15px">\n' +
-        '<a class="folder-background" style="display:flex; background: url(http://wildposh.pensoft.com/storage/app/media/Reporting%20forms.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/forms" title="Reporting forms"></a>\n' +
+        '<a class="folder-background" style="display:flex; background: url(https://wildposh.eu/storage/app/media/Reporting%20forms.svg) center center no-repeat; background-size: 100px; height: 200px" href="/internal-repository/forms" title="Reporting forms"></a>\n' +
         '<h3 class="card-header"><a href="/internal-repository/forms" title="Reporting forms">Reporting forms</a></h3>\n' +
         '</div>').insertAfter($('.card.internal:nth-child(5)'));
 
@@ -210,18 +210,27 @@ $(document).ready(function() {
 
     });
 
-    if (width >= 1024) {
-        $('.partners_list .key_1, .partners_list .key_3, .partners_list .key_5, .partners_list .key_7, .partners_list .key_9, .partners_list .key_11, .partners_list .key_13, .partners_list .key_15, .partners_list .key_17, .partners_list .key_19').wrapAll('<div class="col-md-6 col-xs-12" />');
-        $('.partners_list .key_0, .partners_list .key_2, .partners_list .key_4, .partners_list .key_6, .partners_list .key_8, .partners_list .key_10, .partners_list .key_12, .partners_list .key_14, .partners_list .key_16, .partners_list .key_18').wrapAll('<div class="col-md-6 col-xs-12" />');
-    }
-    // $('').wrapAll('<div class="container-fluid bg-secondary"><div class="container"></div></div>')
     $('.library .form-wrapper, .library-items').wrapAll('<div class="container-fluid bg-secondary"><div class="container"></div></div>');
     $('.library .tabs').wrapAll('<div class="container"></div>');
     $('.library_content .row.center-xs.mb-1').wrapAll('<div class="container_relative"></div>');
 
-    $('.projects_services .key_1').click(function(){
-        $(this).classList.remove("ui-accordion-header ui-corner-top ui-state-default ui-accordion-icons ui-state-hover ui-accordion-header-active ui-state-active")
-    });
+    
+
+    if( width < 1024 ){
+        $('.projects_services .key_1').click(function(){
+            $(this).classList.remove("ui-accordion-header ui-corner-top ui-state-default ui-accordion-icons ui-state-hover ui-accordion-header-active ui-state-active");
+        });
+        $( window ).on( "load", function() {
+          $(".projects_services .key_1").each(function(k, v) {
+                $(this).attr("style", "display:block!important;");
+            });
+        } );
+           
+
+        
+    }
+    
+    
 
     $('.tabs').each(function(){
         // For each set of tabs, we want to keep track of

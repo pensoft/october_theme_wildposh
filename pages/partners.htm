@@ -5,7 +5,6 @@ is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
 header_image = "about.jpg"
-
 ==
 <?php
 use Pensoft\Partners\Models\Partners;
@@ -13,11 +12,9 @@ use Pensoft\Partners\Models\Partners;
 function onStart(){
 	$this['partners'] =  Partners::where('type', 1)->get();
 }
-
-
 ?>
 ==
-    <h1 class="underline">Partners</h1>
+<h1 class="underline">Partners</h1>
     <div class="container">
         <div class="row container">
             <div class="row partners_list">
@@ -25,9 +22,9 @@ function onStart(){
 
                     <div class="partner-item key_{{k}}" data-aos="fade-up">
                         <div class="row middle-xs logo_and_link">
-                            <div class="col-xs-8 col-md-8 partner_logo"><a href="{{partner.instituion_url}}" target="_blank">
+                            <div class="col-xs-8 col-md-10 partner_logo"><a href="{{partner.instituion_url}}" target="_blank">
                                 <img alt="{{ partner.instituion }}" src="{{partner.cover.thumb(150,auto,{'mode':'crop'})}}"></a></div>
-                            <div class="col-xs-4 col-md-4 partner_link end-xs">{{partner.country.0.name}}</div>
+                            <div class="col-xs-4 col-md-2 partner_link end-xs">{{partner.country.0.name}}</div>
                         </div>
                         <div class="col-xs-12 partner_description">
                             <h4><a href="{{partner.instituion_url}}" target="_blank">{{partner.instituion}}</a></h4>
