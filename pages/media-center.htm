@@ -109,8 +109,8 @@ return Response::download($pathToFile, $fileName, $headers);
             {% endif %}
 
             {% if graphics.count() %}
-            <a href="#Graphics" title="Project graphics" class="graphics">
-                <span>Project graphics</span>
+            <a href="#Graphics" title="Scientific illustrations" class="graphics">
+                <span>Scientific illustrations</span>
             </a>
             {% endif %}
         </div>
@@ -298,7 +298,7 @@ return Response::download($pathToFile, $fileName, $headers);
                         {{ form_close() }}
                         {% endif %}
 
-                        
+
                         {% if record.file_pdf %}
                         <a class="btn btn-primary" href="{{record.file_pdf.path}}" target="_blank">pdf</a>
                         {% endif %}
@@ -316,10 +316,10 @@ return Response::download($pathToFile, $fileName, $headers);
         {% endif %}
 
         {% if graphics.count() %}
-        <div class="row content_graphic" id="Graphics">
+        <div class="row content_flyer" id="Graphics">
             <div class="container">
 
-                <ul class="row graphics">
+                <ul class="row flyers">
 
                     {% for record in graphics %}
                     {# Use spaceless tag to remove spaces inside the A tag. #}
@@ -327,7 +327,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     {% if record.image %}
                     <li class="col-lg-4 col-xs-12">
                         <h1 class="display-1">{{record.name}}</h1>
-                        <div class="graphic_image_container" title="{{record.name}}">
+                        <div class="flyer_image_container" title="{{record.name}}">
                             <img src="{{record.image.thumb(auto,401,{'mode':'crop'})}}">
                         </div>
                         {{form_open({ request: 'onDownloadFile' }) }}
@@ -362,10 +362,15 @@ return Response::download($pathToFile, $fileName, $headers);
                         <div class="" title="{{record.name}}">
                             <a href="javascript:void(0);" onclick="redirectAndRefresh('{{record.file.path}}')"><img src="{{record.newsletter_image.thumb(auto,448,{'mode':'crop'})}}" style="max-width: 100%;"></a>
                         </div>
+                        {% if record.url %}
+                        <a href="{{record.url}}" target="_blank" class="btn btn-primary" style="margin: 0 auto;">Read the newsletter</a>
+                        {% else %}
                         {{form_open({ request: 'onDownloadFile' }) }}
                         <input type="hidden" value="{{record.file.id}}" name="id">
                         <button type="submit" class="btn btn-primary" data-attach-loading>Download</button>
                         {{ form_close() }}
+                        {% endif %}
+
                     </li>
                     {% endif %}
                     {% endspaceless %}
