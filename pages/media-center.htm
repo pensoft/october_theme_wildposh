@@ -73,8 +73,8 @@ return Response::download($pathToFile, $fileName, $headers);
         <div class="row tabs_links">
 
             {% if logos.count() %}
-            <a href="#Logos" title="Logo" class="logo">
-                <span>Logos</span>
+            <a href="#Brand-materials" title="Brand materials" class="logo">
+                <span>Brand materials</span>
             </a>
             {% endif %}
 
@@ -266,7 +266,7 @@ return Response::download($pathToFile, $fileName, $headers);
         {% endif %}
 
         {% if logos.count() %}
-        <div class="row content_logo" id="Logos">
+        <div class="row content_logo" id="Brand-materials">
             <div class="row top-xs">
                 {% for record in logos %}
                 {% spaceless %}
@@ -297,6 +297,12 @@ return Response::download($pathToFile, $fileName, $headers);
                         <button type="submit" data-attach-loading class="btn btn-primary">svg</button>
                         {{ form_close() }}
                         {% endif %}
+
+                        
+                        {% if record.file_pdf %}
+                        <a class="btn btn-primary" href="{{record.file_pdf.path}}" target="_blank">pdf</a>
+                        {% endif %}
+
                     </div>
                 </div>
                 {% endif %}
