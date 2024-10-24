@@ -75,4 +75,109 @@
 
 }
 
+.advisory-board{
+
+    .profile-item{
+        margin-bottom: 40px;
+        display: flex;
+        justify-content: center;
+
+        h3{
+            font-size: 20px;
+            font-weight: bold;
+            color: @dark-color;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .card_title{
+            color: #9F9F9F;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+
+
+        .contact_info {
+            color: @dark-color;
+            font-size: 20px;
+            font-weight: normal;
+            padding: 0;
+            background: @secondary-color;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            width: 500px;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            .breakpoint-large-down({
+                margin: 0 auto 144px auto;
+            });
+        }
+
+
+
+        .coordinator_info {
+            width: calc(~'100% - 40px');
+            .contact_mail {
+                margin: 20px auto 20px auto!important;
+                a{
+                    color: white;
+                    font-size: 14px;
+                    background: @link-color;
+                    margin: 20px auto 0 auto!important;
+                    height: 45px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 4px;
+                    &:hover{
+                        opacity: 0.7;
+                    }
+                }
+            }
+
+            .read_more{
+                color: @link-color;
+                font-size: 16px;
+                font-weight: bold;
+                background: none;
+                text-align: center;
+                justify-content: center;
+                margin: 40px auto 0px auto;
+
+                &:hover{
+                    opacity: 0.5!important;
+                }
+            }
+        }
+
+
+        .coordinator_image{
+            background-size: cover;
+            img{
+                border-radius: 12px;
+                width: 287px;
+                height: 262px;
+                margin-top: -130px;
+                background: #d8e5e8;
+            }
+        }
+
+        .partner_content{
+            padding: 20px;
+            font-size: 16px;
+            p{
+                font-size: 16px;
+            }
+        }
+
+
+    }
+
+}
+
 
