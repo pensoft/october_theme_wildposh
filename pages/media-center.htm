@@ -109,8 +109,8 @@ return Response::download($pathToFile, $fileName, $headers);
             {% endif %}
 
             {% if graphics.count() %}
-            <a href="#Graphics" title="Scientific illustrations" class="graphics">
-                <span>Scientific illustrations</span>
+            <a href="#Infographics" title="Scientific illustrations" class="graphics">
+                <span>Infographics</span>
             </a>
             {% endif %}
         </div>
@@ -160,10 +160,24 @@ return Response::download($pathToFile, $fileName, $headers);
                         <div class="flyer_image_container" title="{{record.name}}">
                             <img src="{{record.flyer_image.thumb(338,340,{'mode':'crop'})}}" style="max-width: 100%;">
                         </div>
+                        {% if record.file_lang_versions.count() %}
+                            <div class="row">
+                            {% for file in record.file_lang_versions %}
+                            <div class="col-md col-xs-12">
+                            {{form_open({ request: 'onDownloadFile' }) }}
+                            <input type="hidden" value="{{file.id}}" name="id">
+                            <button type="submit" class="btn btn-primary" data-attach-loading>Download ({{file.title}})</button>
+                            {{ form_close() }}
+                            </div>
+
+                            {% endfor %}
+                            </div>
+                        {% else %}
                         {{form_open({ request: 'onDownloadFile' }) }}
                         <input type="hidden" value="{{record.file.id}}" name="id">
                         <button type="submit" class="btn btn-primary" data-attach-loading>Download</button>
                         {{ form_close() }}
+                        {% endif %}
 
                     </li>
 
@@ -316,7 +330,7 @@ return Response::download($pathToFile, $fileName, $headers);
         {% endif %}
 
         {% if graphics.count() %}
-        <div class="row content_flyer" id="Graphics">
+        <div class="row content_flyer" id="Infographics">
             <div class="container">
 
                 <ul class="row flyers">
@@ -360,7 +374,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     <li class="col-lg-3 col-xs-12">
                         <div class="title">{{record.name}}</div>
                         <div class="" title="{{record.name}}">
-                            <a href="javascript:void(0);" onclick="redirectAndRefresh('{{record.file.path}}')"><img src="{{record.newsletter_image.thumb(auto,448,{'mode':'crop'})}}" style="max-width: 100%;"></a>
+                            <a href="{{record.url}}" target="_blank"><img src="{{record.newsletter_image.thumb(auto,448,{'mode':'crop'})}}" style="max-width: 100%;"></a>
                         </div>
                         {% if record.url %}
                         <a href="{{record.url}}" target="_blank" class="btn btn-primary" style="margin: 0 auto;">Read the newsletter</a>
