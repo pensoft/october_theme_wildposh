@@ -16,6 +16,7 @@ use Pensoft\Media\Models\Newsletters;
 use Pensoft\Media\Models\Presentations;
 use Pensoft\Media\Models\Pressreleases;
 use Pensoft\Media\Models\Videos;
+use Pensoft\Media\Models\Documents;
 use System\Models\File;
 
 function onStart(){
@@ -26,6 +27,7 @@ function onStart(){
 $this['presentations'] =  Presentations::get();
 $this['pressreleases'] =  Pressreleases::orderBy('date', 'desc')->get();
 $this['videos'] =  Videos::where('published_at', '<=', 'now()')->orderBy('published_at', 'desc')->get();
+$this['illustrations'] =  Documents::get();
 
 
 
@@ -109,8 +111,14 @@ return Response::download($pathToFile, $fileName, $headers);
             {% endif %}
 
             {% if graphics.count() %}
-            <a href="#Infographics" title="Scientific illustrations" class="graphics">
+            <a href="#Infographics" title="Infographics" class="graphics">
                 <span>Infographics</span>
+            </a>
+            {% endif %}
+
+            {% if illustrations.count() %}
+            <a href="#Illustrations" title="Illustrations" class="graphics">
+                <span>Illustrations</span>
             </a>
             {% endif %}
         </div>
@@ -336,6 +344,41 @@ return Response::download($pathToFile, $fileName, $headers);
                 <ul class="row flyers">
 
                     {% for record in graphics %}
+                    {# Use spaceless tag to remove spaces inside the A tag. #}
+                    {% spaceless %}
+                    {% if record.image %}
+                    <li class="col-lg-4 col-xs-12">
+                        <h1 class="display-1">{{record.name}}</h1>
+                        <div class="flyer_image_container" title="{{record.name}}">
+                            <img src="{{record.image.thumb(auto,401,{'mode':'crop'})}}">
+                        </div>
+                        {{form_open({ request: 'onDownloadFile' }) }}
+                        <input type="hidden" value="{{record.file.id}}" name="id">
+                        <button type="submit" class="btn btn-primary" data-attach-loading>Download</button>
+                        {{ form_close() }}
+
+                    </li>
+
+
+                    {% endif %}
+
+                    {% endspaceless %}
+                    {% else %}
+                    {{ noRecordsMessage }}
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+        {%endif%}
+
+        {% if illustrations.count() %}
+        <div class="row content_flyer" id="Illustrations">
+            <div class="container">
+
+                <ul class="row flyers">
+
+                    {% for record in illustrations %}
                     {# Use spaceless tag to remove spaces inside the A tag. #}
                     {% spaceless %}
                     {% if record.image %}
