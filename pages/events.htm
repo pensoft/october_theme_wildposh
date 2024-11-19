@@ -12,6 +12,7 @@ limit = "null"
 category = "null"
 language = "en"
 redirect_to_detailed_page = "false"
+default_view = "dayGridMonth"
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
@@ -131,10 +132,17 @@ $this['slug'] = $this->param('slug');
             </div>
 
 
-            <div class="text-published">{% if entry.start|date("j") == entry.end|date("j") %} {{entry.start|date("j M Y")}} {% elseif entry.start|date("M") == entry.end|date("M") %} {{entry.start|date("j")}}-{{entry.end|date("j M Y")}} {% else %} {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}  {% endif %}</div>
-            <div class="text-place">{{entry.place}}</div>
+            <div class="text-published">{% if entry.start|date("j") == entry.end|date("j") %} {{entry.start|date("j M Y")}} {% elseif entry.start|date("M") == entry.end|date("M") %} {{entry.start|date("j")}}-{{entry.end|date("j M Y")}} {% else %} {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}{% endif %}<br>{{entry.place}}</div>
+            <div class="text-place"></div>
 
         </div>
+
+        <div class="col-xs-12">
+			{% if entry.image %}
+			<img class="content" src="{{ entry.image|crop_image|resize(673, auto, { mode: 'crop' }) }}" />
+			{% endif %}
+		</div>
+
         <div class="col-xs-12">
             <div class="content">
                 {{entry.description|raw}}
