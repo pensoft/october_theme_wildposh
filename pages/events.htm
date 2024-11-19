@@ -48,7 +48,7 @@ DB::raw("
 \BennoThommo\Meta\Meta::set('og:type', 'article');
 \BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
 if($this['entry']['cover_image']){
-\BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover']->getThumb(600, null, ['mode' => 'auto']));
+\BennoThommo\Meta\Meta::set('twitter:image', $this['entry']['cover_image']->getThumb(600, null, ['mode' => 'auto']));
 
 
 \BennoThommo\Meta\Meta::set('og:image', $this['entry']['cover_image']->getThumb(600, 314, ['mode' => 'crop']));
@@ -120,12 +120,6 @@ $this['slug'] = $this->param('slug');
 {% if entry %}
 <div class="container" style="max-width: 950px;">
     <div class="row single-news-item">
-        {% if entry.image %}
-        <div class="col-md col-xs-12">
-            <img class="content left" src="{{ entry.image|crop_image|resize(555, auto, { mode: 'crop' }) }}" />
-        </div>
-        {% endif %}
-
         <div class="col-md col-xs-12">
             <div class="news-title">
                 <h1 class="single-new-title">{{entry.title}}</h1>
@@ -138,10 +132,10 @@ $this['slug'] = $this->param('slug');
         </div>
 
         <div class="col-xs-12">
-			{% if entry.image %}
-			<img class="content" src="{{ entry.image|crop_image|resize(673, auto, { mode: 'crop' }) }}" />
-			{% endif %}
-		</div>
+            {% if entry.cover_image %}
+            <img class="content" src="{{ entry.cover_image|crop_image|resize(673, auto, { mode: 'crop' }) }}" />
+            {% endif %}
+        </div>
 
         <div class="col-xs-12">
             <div class="content">
