@@ -16,6 +16,7 @@ default_view = "dayGridMonth"
 ==
 <?php
 use Pensoft\Calendar\Models\Entry;
+use Carbon\Carbon;
 
 function onStart(){
 
@@ -58,7 +59,11 @@ if($this['entry']['cover_image']){
 
 }
 $this['page_url'] = $this->pageUrl('');
-$this['entries'] = Entry::orderBy('start', 'desc')->paginate(20);
+
+$this['entries'] = Entry::where('end', '>=', Carbon::now())->orderBy('start', 'asc')->paginate(20);
+
+$this['past_entries'] = Entry::where('end', '<', Carbon::now())->orderBy('start', 'desc')->paginate(20);
+
 
 $this['slug'] = $this->param('slug');
 }
@@ -109,6 +114,43 @@ $this['slug'] = $this->param('slug');
                 {{ entries.fragment('listView').render|raw }}
             </div>
             {% endif %}
+
+            <div class="col-xs-12">
+                <h2>Past events</h2>
+                <div class="events_list_container">
+                    {% for entry in past_entries %}
+                    {% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
+
+                    <div class="row entry_item middle-xs">
+                        <div class="col-md-2 col-xs-12 date_container">
+                            <span class="date_day">{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}</span>
+                            <span class="date_month">{{entry.start|date("M")}}</span>
+                            <span class="date_year">{{entry.start|date("Y")}}</span>
+                        </div>
+                        <div class="col-md-8 col-xs-12">
+                            {% if entry.cover_image %}
+                            <a href="{{'events'|page}}/{{entry.slug}}">
+                                <img src="{{entry.cover_image|crop_image|resize(174, auto, {'mode': 'crop'})}}">
+                            </a>
+                            {% endif %}
+                            <!--<span class="date_week mb-1">{{entry.start|date("l")}}</span>-->
+                            {{entry.title|raw}}
+                        </div>
+                        <div class="col-md-2 col-xs-12 end-md center-xs">
+                            <a href="{{'events'|page}}/{{entry.slug}}" class="read_more">Read more</a>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </div>
+
+                <div class="row container">
+                    {{ past_entries.fragment('listView').render|raw }}
+                </div>
+
+            </div>
+
+
 
         </div>
         <div class="row" id="calendarView">
