@@ -94,7 +94,7 @@ $this['slug'] = $this->param('slug');
                             <img src="{{entry.cover_image|crop_image|resize(174, auto, {'mode': 'crop'})}}">
                         </a>
                         {% endif %}
-                        <span class="date_week mb-1">{{entry.start|date("l")}}</span>
+                        <!--<span class="date_week mb-1">{{entry.start|date("l")}}</span>-->
                         {{entry.title|raw}}
                     </div>
                     <div class="col-md-2 col-xs-12 end-md center-xs">
