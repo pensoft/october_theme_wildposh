@@ -127,6 +127,7 @@ return Response::download($pathToFile, $fileName, $headers);
         {% if pressreleases.count() %}
         <div class="row content_press" id="PressReleases">
             <div class="container">
+            <h2>Press releases</h2>
                 <div class="row">
 
                     {% for record in pressreleases %}
@@ -156,7 +157,7 @@ return Response::download($pathToFile, $fileName, $headers);
 
         {% if flyers.count() %}
         <div class="row content_flyer" id="PromotionalMaterials">
-
+                <h2>Promotional materials</h2>
                 <ul class="flyers">
 
                     {% for record in flyers %}
@@ -204,6 +205,7 @@ return Response::download($pathToFile, $fileName, $headers);
         <div class="row content_presentaion" id="Presentation">
 
             <div class="container">
+                <h2>Presentations</h2>
                 <div class="row">
                     {% for record in presentations %}
                     {% spaceless %}
@@ -236,6 +238,7 @@ return Response::download($pathToFile, $fileName, $headers);
         <div class="row content_video" id="Videos">
 
             <div class="container">
+                <h2>Videos</h2>
                 <div class="row">
 
                     {% for record in videos %}
@@ -289,6 +292,7 @@ return Response::download($pathToFile, $fileName, $headers);
 
         {% if logos.count() %}
         <div class="row content_logo" id="Brand-materials">
+        <h2>Brand materials</h2>
             <div class="row top-xs">
                 {% for record in logos %}
                 {% spaceless %}
@@ -340,6 +344,7 @@ return Response::download($pathToFile, $fileName, $headers);
         {% if graphics.count() %}
         <div class="row content_flyer" id="Infographics">
             <div class="container">
+                <h2>Infographics</h2>
 
                 <ul class="row flyers">
 
@@ -376,6 +381,7 @@ return Response::download($pathToFile, $fileName, $headers);
         <div class="row content_flyer" id="Illustrations">
             <div class="container">
 
+                <h2>Illustrations</h2>
                 <ul class="row flyers">
 
                     {% for record in illustrations %}
@@ -409,6 +415,9 @@ return Response::download($pathToFile, $fileName, $headers);
 
         {% if newsletters.count() %}
         <div class="row content_newsletter" id="Newsletters">
+        <h2>Newsletters</h2>
+                <div class="container">
+                
                 <ul class="row newsletters">
                     {% for record in newsletters %}
                     {# Use spaceless tag to remove spaces inside the A tag. #}
@@ -435,6 +444,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     {{ noRecordsMessage }}
                     {% endfor %}
                 </ul>
+                </div>
         </div>
         {%endif%}
 

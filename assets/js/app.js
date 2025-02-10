@@ -232,7 +232,7 @@ $(document).ready(function() {
     
     
 
-    $('.events .tabs').each(function(){
+    $('.events .tabs, .media-center .tabs').each(function(){
         // For each set of tabs, we want to keep track of
         // which tab is active and its associated content
         var $active, $content, $links = $(this).find('a');
