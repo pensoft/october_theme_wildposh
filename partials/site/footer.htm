@@ -49,19 +49,25 @@ description_limit = 0
                             Follow WildPosh<br>
                             <div class="icons mt-1">
                                 {% if enable_facebook and facebook_url %}
-                                <a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook normal hexagon" target="_blank"></a>
+                                <a href="{{facebook_url}}" target="_blank" class="pr p-secondary p-facebook normal hexagon" ></a>
                                 {% endif %}
                                 {% if enable_twitter and twitter_url %}
-                                <a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter normal hexagon" target="_blank"></a>
+                                <a href="{{twitter_url}}" target="_blank" class="pr p-secondary p-twitter normal hexagon" ></a>
                                 {% endif %}
                                 {% if enable_linkedin and linkedin_url %}
-                                <a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin normal hexagon" target="_blank"></a>
+                                <a  href="{{linkedin_url}}" target="_blank" class="pr p-secondary p-linkedin normal hexagon" ></a>
                                 {% endif %}
                                 {% if enable_youtube and youtube_url %}
-                                <a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube normal hexagon" target="_blank"></a>
+                                <a  href="{{youtube_url}}" target="_blank" class="pr p-secondary p-youtube normal hexagon" ></a>
                                 {% endif %}
                                 {% if enable_instagram and instagram_url %}
-                                <a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram normal hexagon" target="_blank"></a>
+                                <a  href="{{instagram_url}}" target="_blank" class="pr p-secondary p-instagram normal hexagon" ></a>
+                                {% endif %}
+                                {% if this.theme.bluesky_url %}
+                                <a href="{{this.theme.bluesky_url}}" target="_blank" class="pr p-secondary p-bluesky small hexagon"></a>
+                                {% endif %}
+                                {% if this.theme.threads_url %}
+                                <a href="{{this.theme.threads_url}}" target="_blank" class="pr p-secondary p-threads small hexagon"></a>
                                 {% endif %}
                             </div>
                         </div>
@@ -76,7 +82,7 @@ description_limit = 0
                     </div>
                     <div class="col-xs-12 col-md-5 start-md center-xs col-sm-6 start-sm">
                         Contact<br>
-                        <a href="mailto:denis.michez@umons.ac.be" target="_blank">denis.michez@umons.ac.be</a>
+                        <a href="mailto:denis.michez@umons.ac.be" >denis.michez@umons.ac.be</a>
                     </div>
                 </div>
 
@@ -96,7 +102,7 @@ description_limit = 0
                     <div class="col-sm-4 col-xs-12 start-md center-xs"><a href="{{'privacy-policy'|page}}">Privacy Policy</a></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="powered-by my-1 my-lg-0 px-1 end-sm center-xs">
-                        <span>Designed and powered by <a href="https://pensoft.net/" target="_blank">
+                        <span>Designed and powered by <a href="https://pensoft.net/" >
                             <img class="pensoft_logo" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" /></a>
                         </span></div>
                     </div>
