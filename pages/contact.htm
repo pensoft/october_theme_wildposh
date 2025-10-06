@@ -22,22 +22,35 @@ function onStart(){
 ?>
 ==
 {% component 'siteSearchInclude' %}
-<h1 class="underline">Contact</h1>
-<div class="container mt-4">
-	<div class="row mt-4">
-		{% for profile in profiles %}
-			<div class="col-xs-12 col-md-6 profile-item">
-				<div class="contact_info row">
-					<div class="coordinator_image"><img src="{{profile.avatar.thumb(287, 262, {'mode':'crop'})}}" class="fr-fic fr-dii"></div>
-					<div class="coordinator_info">
-						<h3>{{profile.names}}</h3>
-						{% if profile.position %}<p class="card_title">{{profile.position}}</p>{% endif %}
-						{% if profile.content %}<p class="contact_affiliation">{{profile.content | raw}}</p>{% endif %}
-						{% if profile.email %}<p class="contact_mail"><a href="mailto:{{profile.email}}">{{profile.email}}</a></p>{% endif %}
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
-
-</div>
+<main id="main-content" role="main">
+    <section class="container mt-4" aria-labelledby="contact-heading">
+        <h1 id="contact-heading" class="underline">Contact</h1>
+        <div class="row mt-4">
+            {% for profile in profiles %}
+            <article class="col-xs-12 col-md-6 profile-item">
+                <div class="contact_info row">
+                    <div class="coordinator_image">
+                        <img src="{{profile.avatar.thumb(287, 262, {'mode':'crop'})}}" alt="{{profile.names}}" class="fr-fic fr-dii">
+                    </div>
+                    <div class="coordinator_info">
+                        <h2>{{profile.names}}</h2>
+                        {% if profile.position %}
+                        <p class="card_title">{{profile.position}}</p>
+                        {% endif %}
+                        {% if profile.content %}
+                        <div class="contact_affiliation">{{profile.content | raw}}</div>
+                        {% endif %}
+                        {% if profile.email %}
+                        <p class="contact_mail">
+                            <a href="mailto:{{profile.email}}" aria-label="Email {{profile.names}}">
+                                <span class="sr-only">Email: </span>{{profile.email}}
+                            </a>
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+</main>

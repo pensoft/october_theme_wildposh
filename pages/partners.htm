@@ -14,30 +14,45 @@ function onStart(){
 }
 ?>
 ==
-<h1 class="underline">Partners</h1>
-    <div class="container">
+<main id="main-content" role="main">
+    <section class="container" aria-labelledby="partners-heading">
+        <h1 id="partners-heading" class="underline">Partners</h1>
         <div class="row container">
             <div class="row partners_list">
                 {% for k, partner in partners %}
 
-                    <div class="partner-item key_{{k}}" data-aos="fade-up">
-                        <div class="row middle-xs logo_and_link">
-                            <div class="col-xs-8 col-md-10 partner_logo"><a href="{{partner.instituion_url}}" target="_blank">
-                                <img alt="{{ partner.instituion }}" src="{{partner.cover.thumb(150,auto,{'mode':'crop'})}}"></a></div>
-                            <div class="col-xs-4 col-md-2 partner_link end-xs">{{partner.country.0.name}}</div>
+                <article class="partner-item key_{{k}}" data-aos="fade-up">
+                    <div class="row middle-xs logo_and_link">
+                        <div class="col-xs-8 col-md-10 partner_logo">
+                            <a href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{partner.instituion}} website (opens in new window)">
+                                <img alt="{{partner.instituion}} logo" src="{{partner.cover.thumb(150,auto,{'mode':'crop'})}}">
+                            </a>
                         </div>
-                        <div class="col-xs-12 partner_description">
-                            <h4><a href="{{partner.instituion_url}}" target="_blank">{{partner.instituion}}</a></h4>
-                            <div class="partner_content toogle-contact-paragraphs" style="display: none;">
-                                {{partner.content|raw}}
-                            </div>
-                            <a class="read_more pure btn dorsal">Read more</a>
+                        <div class="col-xs-4 col-md-2 partner_link end-xs">
+                            <span aria-label="Location: {{partner.country.0.name}}">{{partner.country.0.name}}</span>
                         </div>
                     </div>
+                    <div class="col-xs-12 partner_description">
+                        <h2>
+                            <a href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{partner.instituion}} website (opens in new window)">{{partner.instituion}}</a>
+                        </h2>
+                        <div class="partner_content toogle-contact-paragraphs"
+                             id="partner-content-{{k}}"
+                             role="region"
+                             aria-labelledby="partner-toggle-{{k}}"
+                             style="display: none;">
+                            {{partner.content|raw}}
+                        </div>
+                        <button class="read_more pure btn dorsal"
+                                id="partner-toggle-{{k}}"
+                                aria-expanded="false"
+                                aria-controls="partner-content-{{k}}">Read more</button>
+                    </div>
+                </article>
 
                 {% endfor %}
 
             </div>
         </div>
-
-    </div>
+    </section>
+</main>

@@ -30,42 +30,44 @@ function onStart(){
 }
 ?>
 ==
-<!-- latest from news -->
-<div class="container-fluid insects" data-aos="fade-up">
-    {% component 'intro' %}
-</div>
+<main id="main-content" role="main">
+    <!-- latest from news -->
+    <section class="container-fluid insects" data-aos="fade-up" aria-labelledby="intro-heading">
+        {% component 'intro' %}
+    </section>
 
 
-<!-- latest from news -->
-<div class="container-fluid bg-secondary">
-	{% component 'article_highlights' %}
-</div>
+    <!-- latest from news -->
+    <section class="container-fluid bg-secondary" aria-labelledby="latest-news-heading">
+        {% component 'article_highlights' %}
+    </section>
 
-{% if entries.count %}
-<div class="container upcoming_events_container" data-aos="fade-up">
-    <h1 class="display-1">Latest Events</h1>
-    <div class="row events_container">
-        {% for event in entries %}
-        <div class="entry_item col-md-3 col-xs-12">
-            <div class="date_container">
-                <div class="date_wrapper">
-                    <span class="date_day">{% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}</span>
-                    <span class="date_month">{{event.start|date("M")}}</span>
-                    <span class="date_year">{{event.start|date("Y")}}</span>
+    {% if entries.count %}
+    <section class="container upcoming_events_container" data-aos="fade-up" aria-labelledby="latest-events-heading">
+        <h2 id="latest-events-heading" class="display-1">Latest Events</h2>
+        <div class="row events_container">
+            {% for event in entries %}
+            <article class="entry_item col-md-3 col-xs-12">
+                <div class="date_container">
+                    <time class="date_wrapper" datetime="{{event.start|date('Y-m-d')}}">
+                        <span class="date_day">{% if event.start|date("j") != event.end|date("j") %} {{event.start|date("j")}}-{{event.end|date("j")}}{% else %}{{event.start|date("j")}}{% endif %}</span>
+                        <span class="date_month">{{event.start|date("M")}}</span>
+                        <span class="date_year">{{event.start|date("Y")}}</span>
+                    </time>
                 </div>
-                <!--{{event.place}}-->
-            </div>
-            <h3>{{event.title|raw}}</h3>
-            <a href="{{'events'|page}}/{{event.slug}}" class="read_more pure btn">Read more</a>
+                <h3>{{event.title|raw}}</h3>
+                <a href="{{'events'|page}}/{{event.slug}}" class="read_more pure btn" aria-label="Read more about {{event.title}}">Read more</a>
+            </article>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
+    </section>
+    {% endif %}
 
-{% if this.theme.subscribe %}
-<div class="container center-xs subscriber" data-aos="fade-up">
-    <p>Join our community by subscribing to our newsletter.</p>
-    <p><a href="{{this.theme.subscribe}}" target="_blank" class="btn-subscribe">SUBSCRIBE</a></p>
-</div>
-{% endif %}
+    {% if this.theme.subscribe %}
+    <section class="container center-xs subscriber" data-aos="fade-up" aria-labelledby="newsletter-heading">
+        <h2 id="newsletter-heading" class="sr-only">Newsletter Subscription</h2>
+        <p>Join our community by subscribing to our newsletter.</p>
+        <p><a href="{{this.theme.subscribe}}" target="_blank" rel="noopener noreferrer" class="btn-subscribe" aria-label="Subscribe to WildPosh newsletter (opens in new window)">SUBSCRIBE</a></p>
+    </section>
+    {% endif %}
+</main>

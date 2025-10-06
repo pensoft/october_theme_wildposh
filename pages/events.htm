@@ -69,146 +69,179 @@ $this['slug'] = $this->param('slug');
 }
 ?>
 ==
-<h1 class="underline">Events</h1>
-{% if not slug %}
-<div class="container">
-    <div class="tabs">
-        <a class="" href="#listView">List view</a> <span class="divider">|</span>
-        <a class="" href="#calendarView">Calendar view</a>
+<main id="main-content" role="main">
+    {% if not slug %}
+    <section class="container" aria-labelledby="events-heading">
+        <h1 id="events-heading" class="underline">Events</h1>
+        <nav class="tabs" role="tablist" aria-label="Event view options">
+            <a class="tab-link" href="#listView" role="tab" aria-selected="true" aria-controls="listView" id="tab-list">List view</a> <span class="divider" aria-hidden="true">|</span>
+            <a class="tab-link" href="#calendarView" role="tab" aria-selected="false" aria-controls="calendarView" id="tab-calendar">Calendar view</a>
 
-    </div>
-</div>
-<!--tabs content	-->
-<div class="container-fluid">
-    <div class="container">
+        </nav>
+    </section>
+    <!--tabs content	-->
+    <div class="container-fluid">
+        <div class="container">
 
-        <div class="row" id="listView">
-            <div class="events_list_container">
-                {% for entry in entries %}
-                {% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
-
-                <div class="row entry_item middle-xs">
-                    <div class="col-md-2 col-xs-12 date_container">
-                        <span class="date_day">{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}</span>
-                        <span class="date_month">{{entry.start|date("M")}}</span>
-                        <span class="date_year">{{entry.start|date("Y")}}</span>
-                    </div>
-                    <div class="col-md-8 col-xs-12">
-                        {% if entry.cover_image %}
-                        <a href="{{'events'|page}}/{{entry.slug}}">
-                            <img src="{{entry.cover_image|crop_image|resize(174, auto, {'mode': 'crop'})}}">
-                        </a>
-                        {% endif %}
-                        <!--<span class="date_week mb-1">{{entry.start|date("l")}}</span>-->
-                        {{entry.title|raw}}
-                    </div>
-                    <div class="col-md-2 col-xs-12 end-md center-xs">
-                        <a href="{{'events'|page}}/{{entry.slug}}" class="read_more">Read more</a>
-                    </div>
-                </div>
-
-                {% endfor %}
-            </div>
-            {% if entries.count > 20 %}
-            <div class="row container">
-                {{ entries.fragment('listView').render|raw }}
-            </div>
-            {% endif %}
-
-            <div class="col-xs-12 mt-4">
-                <h2>Past events</h2>
-                <div class="events_list_container">
-                    {% for entry in past_entries %}
+            <div class="row" id="listView" role="tabpanel" aria-labelledby="tab-list">
+                <section class="events_list_container" aria-labelledby="upcoming-events-heading">
+                    <h2 id="upcoming-events-heading" class="sr-only">Upcoming Events</h2>
+                    {% for entry in entries %}
                     {% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
 
-                    <div class="row entry_item middle-xs">
+                    <article class="row entry_item middle-xs">
                         <div class="col-md-2 col-xs-12 date_container">
-                            <span class="date_day">{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}</span>
-                            <span class="date_month">{{entry.start|date("M")}}</span>
-                            <span class="date_year">{{entry.start|date("Y")}}</span>
+                            <time datetime="{{entry.start|date('Y-m-d')}}">
+                                <span class="date_day">{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}</span>
+                                <span class="date_month">{{entry.start|date("M")}}</span>
+                                <span class="date_year">{{entry.start|date("Y")}}</span>
+                            </time>
                         </div>
                         <div class="col-md-8 col-xs-12">
                             {% if entry.cover_image %}
-                            <a href="{{'events'|page}}/{{entry.slug}}">
-                                <img src="{{entry.cover_image|crop_image|resize(174, auto, {'mode': 'crop'})}}">
+                            <a href="{{'events'|page}}/{{entry.slug}}" aria-label="View {{entry.title}} event details">
+                                <img src="{{entry.cover_image|crop_image|resize(174, auto, {'mode': 'crop'})}}" alt="{{entry.title}}">
                             </a>
                             {% endif %}
-                            <!--<span class="date_week mb-1">{{entry.start|date("l")}}</span>-->
-                            {{entry.title|raw}}
+                            <h3>{{entry.title|raw}}</h3>
                         </div>
                         <div class="col-md-2 col-xs-12 end-md center-xs">
-                            <a href="{{'events'|page}}/{{entry.slug}}" class="read_more">Read more</a>
+                            <a href="{{'events'|page}}/{{entry.slug}}" class="read_more" aria-label="Read more about {{entry.title}}">Read more</a>
                         </div>
-                    </div>
+                    </article>
 
                     {% endfor %}
-                </div>
+                </section>
+                {% if entries.count > 20 %}
+                <nav class="row container" aria-label="Pagination">
+                    {{ entries.fragment('listView').render|raw }}
+                </nav>
+                {% endif %}
 
-                <div class="row container">
-                    {{ past_entries.fragment('listView').render|raw }}
-                </div>
+                <section class="col-xs-12 mt-4" aria-labelledby="past-events-heading">
+                    <h2 id="past-events-heading">Past events</h2>
+                    <div class="events_list_container">
+                        {% for entry in past_entries %}
+                        {% set url = entry.url ?  entry.url : '/events/' ~ entry.slug %}
+
+                        <article class="row entry_item middle-xs">
+                            <div class="col-md-2 col-xs-12 date_container">
+                                <time datetime="{{entry.start|date('Y-m-d')}}">
+                                    <span class="date_day">{% if entry.start|date("j") != entry.end|date("j") %} {{entry.start|date("j")}}-{{entry.end|date("j")}}{% else %}{{entry.start|date("j")}}{% endif %}</span>
+                                    <span class="date_month">{{entry.start|date("M")}}</span>
+                                    <span class="date_year">{{entry.start|date("Y")}}</span>
+                                </time>
+                            </div>
+                            <div class="col-md-8 col-xs-12">
+                                {% if entry.cover_image %}
+                                <a href="{{'events'|page}}/{{entry.slug}}" aria-label="View {{entry.title}} event details">
+                                    <img src="{{entry.cover_image|crop_image|resize(174, auto, {'mode': 'crop'})}}" alt="{{entry.title}}">
+                                </a>
+                                {% endif %}
+                                <h3>{{entry.title|raw}}</h3>
+                            </div>
+                            <div class="col-md-2 col-xs-12 end-md center-xs">
+                                <a href="{{'events'|page}}/{{entry.slug}}" class="read_more" aria-label="Read more about {{entry.title}}">Read more</a>
+                            </div>
+                        </article>
+
+                        {% endfor %}
+                    </div>
+
+                    <nav class="row container" aria-label="Past events pagination">
+                        {{ past_entries.fragment('listView').render|raw }}
+                    </nav>
+
+                </section>
+
+
 
             </div>
+            <div class="row" id="calendarView" role="tabpanel" aria-labelledby="tab-calendar" hidden>
+                {% component 'calendar' %}
+            </div>
 
-
-
-        </div>
-        <div class="row" id="calendarView">
-            {% component 'calendar' %}
         </div>
 
     </div>
 
-</div>
 
+    {% else %}
 
-{% else %}
-
-{% if entry %}
-<div class="container" style="max-width: 950px;">
-    <div class="row single-news-item">
-        <div class="col-md col-xs-12">
-            <div class="news-title">
-                <h1 class="single-new-title">{{entry.title}}</h1>
-            </div>
-
-
-            <div class="text-published">{% if entry.start|date("j") == entry.end|date("j") %} {{entry.start|date("j M Y")}} {% elseif entry.start|date("M") == entry.end|date("M") %} {{entry.start|date("j")}}-{{entry.end|date("j M Y")}} {% else %} {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}{% endif %}<br>{{entry.place}}</div>
-            <div class="text-place"></div>
-
-        </div>
-
-        <div class="col-xs-12">
-            {% if entry.cover_image %}
-            <img class="content" src="{{ entry.cover_image|crop_image|resize(673, auto, { mode: 'crop' }) }}" />
-            {% endif %}
-        </div>
-
-        <div class="col-xs-12">
-            <div class="content">
-                {{entry.description|raw}}
-            </div>
-
-        </div>
-        <div class="col-xs-12">
-
-            {% if entry.url %}
-            <br><br><a href="{{entry.url}}" class="read_more" target="_blank">Go to event website</a>
-            {% endif %}
-
-            <div class="row share_container middle-xs">
-                <div class="col-cx-12 center-xs share_label">Share</div>
-                <div class="col-cx-12 center-xs">
-                    <a href="http://twitter.com/share?text={{entry.title}}&url={{page_url}}" target="_blank" class="pr p-twitter big hexagon"></a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" class="pr p-facebook big  hexagon"></a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin big hexagon"></a>
+    {% if entry %}
+    <article class="container" style="max-width: 950px;">
+        <div class="row single-news-item">
+            <header class="col-md col-xs-12">
+                <div class="news-title">
+                    <h1 class="single-new-title">{{entry.title}}</h1>
                 </div>
+
+
+                <div class="text-published">
+                    <time datetime="{{entry.start|date('Y-m-d')}}">
+                        {% if entry.start|date("j") == entry.end|date("j") %}
+                        {{entry.start|date("j M Y")}}
+                        {% elseif entry.start|date("M") == entry.end|date("M") %}
+                        {{entry.start|date("j")}}-{{entry.end|date("j M Y")}}
+                        {% else %}
+                        {{entry.start|date("d M Y")}} - {{entry.end|date("d M Y")}}
+                        {% endif %}
+                    </time>
+                    <br><strong>{{entry.place}}</strong>
+                </div>
+
+            </header>
+
+            <div class="col-xs-12">
+                {% if entry.cover_image %}
+                <img class="content" src="{{ entry.cover_image|crop_image|resize(673, auto, { mode: 'crop' }) }}" alt="{{entry.title}}" />
+                {% endif %}
             </div>
 
+            <div class="col-xs-12">
+                <div class="content">
+                    {{entry.description|raw}}
+                </div>
+
+            </div>
+            <div class="col-xs-12">
+
+                {% if entry.url %}
+                <p><a href="{{entry.url}}" class="read_more" target="_blank" rel="noopener noreferrer" aria-label="Go to {{entry.title}} event website (opens in new window)">Go to event website</a></p>
+                {% endif %}
+
+                <nav class="row share_container middle-xs" aria-label="Share this event">
+                    <div class="col-cx-12 center-xs share_label">Share</div>
+                    <div class="col-cx-12 center-xs">
+                        <a href="http://twitter.com/share?text={{entry.title}}&url={{page_url}}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="pr p-twitter big hexagon"
+                           aria-label="Share on Twitter (opens in new window)">
+                            <span class="sr-only">Twitter</span>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="pr p-facebook big hexagon"
+                           aria-label="Share on Facebook (opens in new window)">
+                            <span class="sr-only">Facebook</span>
+                        </a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="pr p-linkedin big hexagon"
+                           aria-label="Share on LinkedIn (opens in new window)">
+                            <span class="sr-only">LinkedIn</span>
+                        </a>
+                    </div>
+                </nav>
+
+            </div>
         </div>
-    </div>
-</div>
+    </article>
 
-{% endif %}
+    {% endif %}
 
-{% endif %}
+    {% endif %}
+</main>
