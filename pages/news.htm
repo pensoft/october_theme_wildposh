@@ -120,7 +120,10 @@ $this['related'] = $related;
             <div class="row share_container middle-xs">
                 <div class="col-cx-12 center-xs share_label">Share</div>
                 <div class="col-cx-12 center-xs">
-                    <a href="http://twitter.com/share?text={{article.title}}&url={{page_url}}" target="_blank" class="pr p-twitter big  hexagon"></a>
+                
+                    <a href="https://bsky.app/intent/compose?text={{article.title}}20%{{page_url}}" target="_blank" class="pr p-bluesky  normal  hexagon"></a>
+                  
+                    
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{page_url}}&amp;src=sdkpreparse" target="_blank" class="pr p-facebook big  hexagon"></a>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{page_url}}" target="_blank" class="pr p-linkedin big hexagon"></a>
                 </div>
@@ -160,6 +163,10 @@ $this['related'] = $related;
     No news
     {% endfor %}
     </div>
+
+    <div class="row container">
+		{{ records.render|raw }}
+	</div>
 
 	{% endif %}
 </div>
