@@ -21,36 +21,53 @@ $this['advisory_board'] = Profiles::where('category_id', 2)->get();
 ==
 {% component 'siteSearchInclude' %}
 
-<div class="container">
-    <h1 class="page_heading ml-1 mb-4">Advisory board</h1>
-    <div class="row start-md around-xs partners_list_container">
-        {% for profile in advisory_board %}
-        <div class="col-xs-12 col-md-6 profile-item" style="margin-top: 150px;">
-            <div class="contact_info row">
-                <div class="coordinator_image">
-                    {% if profile.avatar %}
-                    <img src="{{profile.avatar.thumb(287, 262, {'mode':'crop'})}}" class="fr-fic fr-dii">
-                    {% else %}
-                    <img src="{{'CMS_icons_avatar_ab.svg'|media}}" class="fr-fic fr-dii">
+<main id="main-content" role="main">
+    <section class="container" aria-labelledby="advisory-board-heading">
+        <h1 id="advisory-board-heading" class="page_heading ml-1 mb-4">Advisory board</h1>
+        <div class="row start-md around-xs partners_list_container">
+            {% for profile in advisory_board %}
+            <article class="col-xs-12 col-md-6 profile-item advisory-board-member">
+                <div class="contact_info row">
+                    <div class="coordinator_image">
+                        {% if profile.avatar %}
+                        <img src="{{profile.avatar.thumb(287, 262, {'mode':'crop'})}}" alt="{{profile.names}}" class="fr-fic fr-dii">
+                        {% else %}
+                        <img src="{{'CMS_icons_avatar_ab.svg'|media}}" alt="{{profile.names}}" class="fr-fic fr-dii">
 
-                    {% endif %}
-                </div>
-                <div class="coordinator_info">
-                    <h3>{{profile.names}}</h3>
-                    {% if profile.position %}<p class="card_title">{{profile.position}}</p>{% endif %}
-                    {% if profile.content %}
-
-                    <div class="partner_content toogle-contact-paragraphs" style="display: none;">
-                        {{ profile.content|raw }}
+                        {% endif %}
                     </div>
-                    <a class="read_more pure btn dorsal">Read more</a>
-                    {% endif %}
+                    <div class="coordinator_info">
+                        <h2>{{profile.names}}</h2>
+                        {% if profile.position %}
+                        <p class="card_title">{{profile.position}}</p>
+                        {% endif %}
+                        {% if profile.content %}
 
-                    {% if profile.email %}<p class="contact_mail"><a href="mailto:{{profile.email}}">{{profile.email}}</a></p>{% endif %}
+                        <div class="partner_content toogle-contact-paragraphs"
+                             id="advisory-content-{{loop.index}}"
+                             role="region"
+                             aria-labelledby="advisory-toggle-{{loop.index}}"
+                             style="display: none;">
+                            {{ profile.content|raw }}
+                        </div>
+                        <button class="read_more pure btn dorsal"
+                                id="advisory-toggle-{{loop.index}}"
+                                aria-expanded="false"
+                                aria-controls="advisory-content-{{loop.index}}">Read more</button>
+                        {% endif %}
+
+                        {% if profile.email %}
+                        <p class="contact_mail">
+                            <a href="mailto:{{profile.email}}" aria-label="Email {{profile.names}}">
+                                <span class="sr-only">Email: </span>{{profile.email}}
+                            </a>
+                        </p>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-        </div>
+            </article>
 
-        {% endfor %}
-    </div>
-</div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
