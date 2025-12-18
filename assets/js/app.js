@@ -229,7 +229,7 @@ $(document).ready(function() {
 
 
 
-    $('.events .tabs, .media-center .tabs, .partners .tabs').each(function(){
+    $('.events .tabs, .media-center .tabs, .partners .tabs .tabs_links').each(function(){
         // For each set of tabs, we want to keep track of
         // which tab is active and its associated content
         var $active, $content, $links = $(this).find('a');
@@ -240,11 +240,14 @@ $(document).ready(function() {
         // If no match is found, use the first link as the initial active tab.
         $active = $($links.filter("[href=\'"+location.hash+"\']")[0] || $links[0]);
 
+        
+
         if($(this).parent().parent().hasClass('events')){
             $active.addClass('active');
+            
         }
 
-        if($(this).parent().parent().hasClass('partners')){
+        if($(this).parent().parent().parent().parent().hasClass('partners')){
             $active.addClass('active');
         }
 
