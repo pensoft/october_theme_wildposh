@@ -243,6 +243,7 @@ $(document).ready(function() {
         if($(this).parent().parent().hasClass('events')){
             $active.addClass('active');
         }
+
         if($(this).parent().parent().hasClass('partners')){
             $active.addClass('active');
         }

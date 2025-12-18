@@ -19,9 +19,8 @@ function onStart(){
     <section class="container tabs" aria-labelledby="partners-heading">
         <h1 id="partners-heading" class="underline">Partners</h1>
         <nav class="row tabs_links" role="tablist" aria-label="Partners sections">
-
             {% if partners.count() %}
-            <a href="#Consortium" class="partners" role="tab" aria-selected="false" aria-controls="Consortium">
+            <a href="#Consortium" class="partners" role="tab" aria-selected="true" aria-controls="Consortium">
                 <span>Consortium partners</span>
             </a>
             {% endif %}
@@ -36,7 +35,6 @@ function onStart(){
         <div class="row container" id="Consortium" role="tabpanel" aria-label="Consortium partners list">
             <div class="row partners_list">
                 {% for k, partner in partners %}
-
                 <article class="partner-item key_{{k}}" data-aos="fade-up">
                     <div class="row middle-xs logo_and_link">
                         <div class="col-xs-8 col-md-10 partner_logo">
@@ -65,16 +63,13 @@ function onStart(){
                                 aria-controls="partner-content-{{k}}">Read more</button>
                     </div>
                 </article>
-
                 {% endfor %}
-
             </div>
         </div>
 
         <div class="row container" id="Associated" role="tabpanel" aria-label="Associated partners list">
             <div class="row partners_list">
                 {% for k, partner in a_partners %}
-
                 <article class="partner-item key_{{k}}" data-aos="fade-up">
                     <div class="row middle-xs logo_and_link">
                         <div class="col-xs-8 col-md-10 partner_logo">
@@ -103,9 +98,7 @@ function onStart(){
                                 aria-controls="partner-content-{{k}}">Read more</button>
                     </div>
                 </article>
-
                 {% endfor %}
-
             </div>
         </div>
     </section>
