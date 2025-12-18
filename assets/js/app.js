@@ -214,7 +214,7 @@ $(document).ready(function() {
     $('.library .tabs').wrapAll('<div class="container"></div>');
     $('.library_content .row.center-xs.mb-1').wrapAll('<div class="container_relative"></div>');
 
-    
+
 
     if( width < 1024 ){
         $('.projects_services .key_1').click(function(){
@@ -225,14 +225,11 @@ $(document).ready(function() {
                 $(this).attr("style", "display:block!important;");
             });
         } );
-           
-
-        
     }
-    
-    
 
-    $('.events .tabs, .media-center .tabs').each(function(){
+
+
+    $('.events .tabs, .media-center .tabs, .partners .tabs').each(function(){
         // For each set of tabs, we want to keep track of
         // which tab is active and its associated content
         var $active, $content, $links = $(this).find('a');
@@ -244,6 +241,9 @@ $(document).ready(function() {
         $active = $($links.filter("[href=\'"+location.hash+"\']")[0] || $links[0]);
 
         if($(this).parent().parent().hasClass('events')){
+            $active.addClass('active');
+        }
+        if($(this).parent().parent().hasClass('partners')){
             $active.addClass('active');
         }
 

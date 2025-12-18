@@ -11,15 +11,69 @@ use Pensoft\Partners\Models\Partners;
 
 function onStart(){
 	$this['partners'] =  Partners::where('type', 1)->get();
+	$this['a_partners'] =  Partners::where('type', '<>',  1)->get();
 }
 ?>
 ==
 <main id="main-content" role="main">
-    <section class="container" aria-labelledby="partners-heading">
+    <section class="container tabs" aria-labelledby="partners-heading">
         <h1 id="partners-heading" class="underline">Partners</h1>
-        <div class="row container">
+        <nav class="row tabs_links" role="tablist" aria-label="Partners sections">
+
+            {% if partners.count() %}
+            <a href="#Consortium" class="partners" role="tab" aria-selected="false" aria-controls="Consortium">
+                <span>Consortium partners</span>
+            </a>
+            {% endif %}
+
+            {% if a_partners.count() %}
+            <a href="#Associated" class="a_partners" role="tab" aria-selected="false" aria-controls="Associated">
+                <span>Associated partners</span>
+            </a>
+            {% endif %}
+        </nav>
+
+        <div class="row container" id="Consortium" role="tabpanel" aria-label="Consortium partners list">
             <div class="row partners_list">
                 {% for k, partner in partners %}
+
+                <article class="partner-item key_{{k}}" data-aos="fade-up">
+                    <div class="row middle-xs logo_and_link">
+                        <div class="col-xs-8 col-md-10 partner_logo">
+                            <a href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{partner.instituion}} website (opens in new window)">
+                                <img alt="{{partner.instituion}} logo" src="{{partner.cover.thumb(150,auto,{'mode':'crop'})}}">
+                            </a>
+                        </div>
+                        <div class="col-xs-4 col-md-2 partner_link end-xs">
+                            <span aria-label="Location: {{partner.country.0.name}}">{{partner.country.0.name}}</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 partner_description">
+                        <h2>
+                            <a href="{{partner.instituion_url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit {{partner.instituion}} website (opens in new window)">{{partner.instituion}}</a>
+                        </h2>
+                        <div class="partner_content toogle-contact-paragraphs"
+                             id="partner-content-{{k}}"
+                             role="region"
+                             aria-labelledby="partner-toggle-{{k}}"
+                             style="display: none;">
+                            {{partner.content|raw}}
+                        </div>
+                        <button class="read_more pure btn dorsal"
+                                id="partner-toggle-{{k}}"
+                                aria-expanded="false"
+                                aria-controls="partner-content-{{k}}">Read more</button>
+                    </div>
+                </article>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="row container" id="Associated" role="tabpanel" aria-label="Associated partners list">
+            <div class="row partners_list">
+                {% for k, partner in a_partners %}
 
                 <article class="partner-item key_{{k}}" data-aos="fade-up">
                     <div class="row middle-xs logo_and_link">
