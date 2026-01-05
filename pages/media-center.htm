@@ -176,7 +176,27 @@ return Response::download($pathToFile, $fileName, $headers);
                     <div class="flyer_image_container">
                         <img src="{{record.flyer_image.thumb(338,340,{'mode':'crop'})}}" alt="{{record.name}} promotional material" style="max-width: 100%;">
                     </div>
-                    {% if record.file_lang_versions.count() %}
+
+                    {% if record.file_lang_versions.count() > 1 %}
+                    <div class="row middle-xs center-xs">
+                        Download &nbsp;
+                        {% for brochure in record.file_lang_versions %}
+
+                        {% set languages = brochure.title|split(' ') %}
+                        {% if brochure.path %}
+                            {{form_open({ request: 'onDownloadFile' }) }}
+                            <input type="hidden" value="{{brochure.id}}" name="id">
+                            <button type="submit"
+                                    class="btn btn-primary"
+                                    data-attach-loading
+                                    aria-label="Download {{brochure.title}}">{{languages[1]}}</button>
+                            {{ form_close() }}
+                        {% endif %}
+                        &nbsp;
+                        {% endfor%}
+                    </div>
+                    {% elseif record.file_lang_versions.count() == 1 %}
+
                     <div class="row">
                         {% for file in record.file_lang_versions %}
                         <div class="col-md col-xs-12">
