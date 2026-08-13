@@ -463,7 +463,7 @@ return Response::download($pathToFile, $fileName, $headers);
                     {% spaceless %}
                     {% if record.image %}
                     <li class="col-lg-4 col-xs-12">
-                        <h3 class="display-1">{{record.title}}</h3>
+                        <h3 class="display-1"><em>{{record.title}}</em></h3>
                         <div class="flyer_image_container">
                             <img src="{{record.image.thumb(auto,401,{'mode':'crop'})}}" alt="{{record.title}} illustration">
                         </div>
