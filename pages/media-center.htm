@@ -184,13 +184,10 @@ return Response::download($pathToFile, $fileName, $headers);
 
                         {% set languages = brochure.title|split(' ') %}
                         {% if brochure.path %}
-                            {{form_open({ request: 'onDownloadFile' }) }}
-                            <input type="hidden" value="{{brochure.id}}" name="id">
-                            <button type="submit"
-                                    class="btn btn-primary"
-                                    data-attach-loading
-                                    aria-label="Download {{brochure.title}}">{{languages[1]}}</button>
-                            {{ form_close() }}
+                            <a href="{{brochure.path}}"
+                               download="{{brochure.file_name}}"
+                               class="btn btn-primary download-link matomo_download"
+                               aria-label="Download {{brochure.title}}">{{languages[1]}}</a>
                         {% endif %}
                         &nbsp;
                         {% endfor%}
@@ -200,25 +197,19 @@ return Response::download($pathToFile, $fileName, $headers);
                     <div class="row">
                         {% for file in record.file_lang_versions %}
                         <div class="col-md col-xs-12">
-                            {{form_open({ request: 'onDownloadFile' }) }}
-                            <input type="hidden" value="{{file.id}}" name="id">
-                            <button type="submit"
-                                    class="btn btn-primary"
-                                    data-attach-loading
-                                    aria-label="Download {{record.name}} in {{file.title}}">Download ({{file.title}})</button>
-                            {{ form_close() }}
+                            <a href="{{file.path}}"
+                               download="{{file.file_name}}"
+                               class="btn btn-primary download-link matomo_download"
+                               aria-label="Download {{record.name}} in {{file.title}}">Download ({{file.title}})</a>
                         </div>
 
                         {% endfor %}
                     </div>
-                    {% else %}
-                    {{form_open({ request: 'onDownloadFile' }) }}
-                    <input type="hidden" value="{{record.file.id}}" name="id">
-                    <button type="submit"
-                            class="btn btn-primary"
-                            data-attach-loading
-                            aria-label="Download {{record.name}}">Download</button>
-                    {{ form_close() }}
+                    {% elseif record.file %}
+                    <a href="{{record.file.path}}"
+                       download="{{record.file.file_name}}"
+                       class="btn btn-primary download-link matomo_download"
+                       aria-label="Download {{record.name}}">Download</a>
                     {% endif %}
 
                 </li>
@@ -254,13 +245,10 @@ return Response::download($pathToFile, $fileName, $headers);
                         </div>
                         {% if record.file %}
 
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file.id}}" name="id">
-                        <button type="submit"
-                                class="btn btn-primary"
-                                data-attach-loading
-                                aria-label="Download {{record.name}} presentation">Download</button>
-                        {{ form_close() }}
+                        <a href="{{record.file.path}}"
+                           download="{{record.file.file_name}}"
+                           class="btn btn-primary download-link matomo_download"
+                           aria-label="Download {{record.name}} presentation">Download</a>
 
                         {% endif %}
                     </article>
@@ -297,13 +285,10 @@ return Response::download($pathToFile, $fileName, $headers);
                         <p>Attachment: {{record.file.file_name}}, {{record.file.size}}</p>
 
                         <p>
-                            {{form_open({ request: 'onDownloadFile' }) }}
-                            <input type="hidden" value="{{record.file.id}}" name="id">
-                            <button type="submit"
-                                    class="btn btn-primary"
-                                    data-attach-loading
-                                    aria-label="Download {{record.name}} video">Download</button>
-                            {{ form_close() }}
+                            <a href="{{record.file.path}}"
+                               download="{{record.file.file_name}}"
+                               class="btn btn-primary download-link matomo_download"
+                               aria-label="Download {{record.name}} video">Download</a>
                         </p>
 
                         {% endif %}
@@ -360,33 +345,24 @@ return Response::download($pathToFile, $fileName, $headers);
                     </div>
                     <div class="links">
                         {% if record.file_jpg %}
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file_jpg.id}}" name="id">
-                        <button type="submit"
-                                data-attach-loading
-                                class="btn btn-primary"
-                                aria-label="Download {{record.name}} logo in JPG format">jpg</button>
-                        {{ form_close() }}
+                        <a href="{{record.file_jpg.path}}"
+                           download="{{record.file_jpg.file_name}}"
+                           class="btn btn-primary download-link matomo_download"
+                           aria-label="Download {{record.name}} logo in JPG format">jpg</a>
                         {% endif %}
 
                         {% if record.file_png %}
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file_png.id}}" name="id">
-                        <button type="submit"
-                                data-attach-loading
-                                class="btn btn-primary"
-                                aria-label="Download {{record.name}} logo in PNG format">png</button>
-                        {{ form_close() }}
+                        <a href="{{record.file_png.path}}"
+                           download="{{record.file_png.file_name}}"
+                           class="btn btn-primary download-link matomo_download"
+                           aria-label="Download {{record.name}} logo in PNG format">png</a>
                         {% endif %}
 
                         {% if record.file_eps %}
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file_eps.id}}" name="id">
-                        <button type="submit"
-                                data-attach-loading
-                                class="btn btn-primary"
-                                aria-label="Download {{record.name}} logo in SVG vector format">svg</button>
-                        {{ form_close() }}
+                        <a href="{{record.file_eps.path}}"
+                           download="{{record.file_eps.file_name}}"
+                           class="btn btn-primary download-link matomo_download"
+                           aria-label="Download {{record.name}} logo in SVG vector format">svg</a>
                         {% endif %}
 
 
@@ -428,13 +404,12 @@ return Response::download($pathToFile, $fileName, $headers);
                         <div class="flyer_image_container">
                             <img src="{{record.image.thumb(auto,401,{'mode':'crop'})}}" alt="{{record.name}} infographic">
                         </div>
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file.id}}" name="id">
-                        <button type="submit"
-                                class="btn btn-primary"
-                                data-attach-loading
-                                aria-label="Download {{record.name}} infographic">Download</button>
-                        {{ form_close() }}
+                        {% if record.file %}
+                        <a href="{{record.file.path}}"
+                           download="{{record.file.file_name}}"
+                           class="btn btn-primary download-link matomo_download"
+                           aria-label="Download {{record.name}} infographic">Download</a>
+                        {% endif %}
 
                     </li>
 
@@ -467,13 +442,12 @@ return Response::download($pathToFile, $fileName, $headers);
                         <div class="flyer_image_container">
                             <img src="{{record.image.thumb(auto,401,{'mode':'crop'})}}" alt="{{record.title}} illustration">
                         </div>
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file.id}}" name="id">
-                        <button type="submit"
-                                class="btn btn-primary"
-                                data-attach-loading
-                                aria-label="Download {{record.title}} illustration">Download</button>
-                        {{ form_close() }}
+                        {% if record.file %}
+                        <a href="{{record.file.path}}"
+                           download="{{record.file.file_name}}"
+                           class="btn btn-primary download-link matomo_download"
+                           aria-label="Download {{record.title}} illustration">Download</a>
+                        {% endif %}
 
                     </li>
 
@@ -517,14 +491,11 @@ return Response::download($pathToFile, $fileName, $headers);
                            class="btn btn-primary"
                            style="margin: 0 auto;"
                            aria-label="Read {{record.name}} newsletter (opens in new window)">Read the newsletter</a>
-                        {% else %}
-                        {{form_open({ request: 'onDownloadFile' }) }}
-                        <input type="hidden" value="{{record.file.id}}" name="id">
-                        <button type="submit"
-                                class="btn btn-primary"
-                                data-attach-loading
-                                aria-label="Download {{record.name}} newsletter">Download</button>
-                        {{ form_close() }}
+                        {% elseif record.file %}
+                        <a href="{{record.file.path}}"
+                           download="{{record.file.file_name}}"
+                           class="btn btn-primary download-link matomo_download"
+                           aria-label="Download {{record.name}} newsletter">Download</a>
                         {% endif %}
 
                     </li>

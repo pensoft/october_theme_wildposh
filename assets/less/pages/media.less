@@ -141,7 +141,8 @@
     form{
         width: fit-content;
     }
-    button{
+    button,
+    a.download-link{
         padding-left: 27px;
         padding-right: 13px;
         padding-top: 2px;
@@ -203,13 +204,19 @@ ul.flyers{
             margin: 20px 0;
         }
 
+        // download links sit directly in the column flex context the form used to fill
+        > a.download-link{
+            align-self: center;
+        }
+
         h1{
             text-align: left;
             font-size: 24px;
         }
     }
 
-    button{
+    button,
+    a.download-link{
         padding-left: 27px;
         padding-right: 13px;
         padding-top: 2px;
