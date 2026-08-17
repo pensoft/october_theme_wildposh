@@ -184,10 +184,10 @@ return Response::download($pathToFile, $fileName, $headers);
 
                         {% set languages = brochure.title|split(' ') %}
                         {% if brochure.path %}
-                            <a href="{{brochure.path}}"
-                               download="{{brochure.file_name}}"
-                               class="btn btn-primary download-link matomo_download"
-                               aria-label="Download {{brochure.title}}">{{languages[1]}}</a>
+                            {% partial 'components/download-link'
+                                file=brochure
+                                label=languages[1]
+                                aria='Download ' ~ brochure.title %}
                         {% endif %}
                         &nbsp;
                         {% endfor%}
@@ -197,19 +197,18 @@ return Response::download($pathToFile, $fileName, $headers);
                     <div class="row">
                         {% for file in record.file_lang_versions %}
                         <div class="col-md col-xs-12">
-                            <a href="{{file.path}}"
-                               download="{{file.file_name}}"
-                               class="btn btn-primary download-link matomo_download"
-                               aria-label="Download {{record.name}} in {{file.title}}">Download ({{file.title}})</a>
+                            {% partial 'components/download-link'
+                                file=file
+                                label='Download (' ~ file.title ~ ')'
+                                aria='Download ' ~ record.name ~ ' in ' ~ file.title %}
                         </div>
 
                         {% endfor %}
                     </div>
                     {% elseif record.file %}
-                    <a href="{{record.file.path}}"
-                       download="{{record.file.file_name}}"
-                       class="btn btn-primary download-link matomo_download"
-                       aria-label="Download {{record.name}}">Download</a>
+                    {% partial 'components/download-link'
+                        file=record.file
+                        aria='Download ' ~ record.name %}
                     {% endif %}
 
                 </li>
@@ -236,19 +235,19 @@ return Response::download($pathToFile, $fileName, $headers);
                     {% if record.presentation_image %}
                     <article class="col-xs-12 col-lg-6 center-xs">
                         <div class="story broshure_and_poster">
-                            <a href="{{record.file.path}}"
+                            <a href="{{ ('download/' ~ record.file.id ~ '/' ~ record.file.file_name|url_encode)|app }}"
                                target="_blank"
                                rel="noopener noreferrer"
+                               title="{{record.file.file_name}}"
                                aria-label="View {{record.name}} presentation (opens in new window)">
                                 <img src="{{record.presentation_image.thumb(812,454,{'mode':'crop'})}}" alt="{{record.name}} presentation preview">
                             </a>
                         </div>
                         {% if record.file %}
 
-                        <a href="{{record.file.path}}"
-                           download="{{record.file.file_name}}"
-                           class="btn btn-primary download-link matomo_download"
-                           aria-label="Download {{record.name}} presentation">Download</a>
+                        {% partial 'components/download-link'
+                            file=record.file
+                            aria='Download ' ~ record.name ~ ' presentation' %}
 
                         {% endif %}
                     </article>
@@ -285,10 +284,9 @@ return Response::download($pathToFile, $fileName, $headers);
                         <p>Attachment: {{record.file.file_name}}, {{record.file.size}}</p>
 
                         <p>
-                            <a href="{{record.file.path}}"
-                               download="{{record.file.file_name}}"
-                               class="btn btn-primary download-link matomo_download"
-                               aria-label="Download {{record.name}} video">Download</a>
+                            {% partial 'components/download-link'
+                                file=record.file
+                                aria='Download ' ~ record.name ~ ' video' %}
                         </p>
 
                         {% endif %}
@@ -345,33 +343,33 @@ return Response::download($pathToFile, $fileName, $headers);
                     </div>
                     <div class="links">
                         {% if record.file_jpg %}
-                        <a href="{{record.file_jpg.path}}"
-                           download="{{record.file_jpg.file_name}}"
-                           class="btn btn-primary download-link matomo_download"
-                           aria-label="Download {{record.name}} logo in JPG format">jpg</a>
+                        {% partial 'components/download-link'
+                            file=record.file_jpg
+                            label='jpg'
+                            aria='Download ' ~ record.name ~ ' logo in JPG format' %}
                         {% endif %}
 
                         {% if record.file_png %}
-                        <a href="{{record.file_png.path}}"
-                           download="{{record.file_png.file_name}}"
-                           class="btn btn-primary download-link matomo_download"
-                           aria-label="Download {{record.name}} logo in PNG format">png</a>
+                        {% partial 'components/download-link'
+                            file=record.file_png
+                            label='png'
+                            aria='Download ' ~ record.name ~ ' logo in PNG format' %}
                         {% endif %}
 
                         {% if record.file_eps %}
-                        <a href="{{record.file_eps.path}}"
-                           download="{{record.file_eps.file_name}}"
-                           class="btn btn-primary download-link matomo_download"
-                           aria-label="Download {{record.name}} logo in SVG vector format">svg</a>
+                        {% partial 'components/download-link'
+                            file=record.file_eps
+                            label='svg'
+                            aria='Download ' ~ record.name ~ ' logo in SVG vector format' %}
                         {% endif %}
 
 
                         {% if record.file_pdf %}
-                        <a class="btn btn-primary"
-                           href="{{record.file_pdf.path}}"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Download {{record.name}} logo in PDF format (opens in new window)">pdf</a>
+                        {% partial 'components/download-link'
+                            file=record.file_pdf
+                            label='pdf'
+                            target='_blank'
+                            aria='Download ' ~ record.name ~ ' logo in PDF format (opens in new window)' %}
                         {% endif %}
 
                     </div>
@@ -405,10 +403,9 @@ return Response::download($pathToFile, $fileName, $headers);
                             <img src="{{record.image.thumb(auto,401,{'mode':'crop'})}}" alt="{{record.name}} infographic">
                         </div>
                         {% if record.file %}
-                        <a href="{{record.file.path}}"
-                           download="{{record.file.file_name}}"
-                           class="btn btn-primary download-link matomo_download"
-                           aria-label="Download {{record.name}} infographic">Download</a>
+                        {% partial 'components/download-link'
+                            file=record.file
+                            aria='Download ' ~ record.name ~ ' infographic' %}
                         {% endif %}
 
                     </li>
@@ -443,10 +440,9 @@ return Response::download($pathToFile, $fileName, $headers);
                             <img src="{{record.image.thumb(auto,401,{'mode':'crop'})}}" alt="{{record.title}} illustration">
                         </div>
                         {% if record.file %}
-                        <a href="{{record.file.path}}"
-                           download="{{record.file.file_name}}"
-                           class="btn btn-primary download-link matomo_download"
-                           aria-label="Download {{record.title}} illustration">Download</a>
+                        {% partial 'components/download-link'
+                            file=record.file
+                            aria='Download ' ~ record.title ~ ' illustration' %}
                         {% endif %}
 
                     </li>
@@ -492,10 +488,9 @@ return Response::download($pathToFile, $fileName, $headers);
                            style="margin: 0 auto;"
                            aria-label="Read {{record.name}} newsletter (opens in new window)">Read the newsletter</a>
                         {% elseif record.file %}
-                        <a href="{{record.file.path}}"
-                           download="{{record.file.file_name}}"
-                           class="btn btn-primary download-link matomo_download"
-                           aria-label="Download {{record.name}} newsletter">Download</a>
+                        {% partial 'components/download-link'
+                            file=record.file
+                            aria='Download ' ~ record.name ~ ' newsletter' %}
                         {% endif %}
 
                     </li>

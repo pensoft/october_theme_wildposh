@@ -1,0 +1,23 @@
+{#
+	Download link that keeps the original file name in the URL.
+
+	Matomo reports the href of the clicked link, so pointing at
+	/download/{id}/{original name} instead of the hashed storage path
+	(file.path) makes the real file name show up in the downloads report.
+	See pages/download.htm for the route itself.
+
+	file   - System\Models\File attachment (required)
+	label  - link text, may contain markup, defaults to "Download"
+	class  - classes for the link, defaults to the primary button
+	aria   - aria-label, defaults to "Download {file name}"
+	target - set to "_blank" to open the file instead of forcing a save
+#}
+{% if file %}
+{% spaceless %}
+<a href="{{ ('download/' ~ file.id ~ '/' ~ file.file_name|url_encode)|app }}"
+   {% if target %}target="{{ target }}" rel="noopener noreferrer"{% else %}download="{{ file.file_name }}"{% endif %}
+   class="{{ class|default('btn btn-primary') }} download-link matomo_download"
+   title="{{ file.file_name }}"
+   aria-label="{{ aria|default('Download ' ~ file.file_name) }}">{{ label|default('Download')|raw }}</a>
+{% endspaceless %}
+{% endif %}

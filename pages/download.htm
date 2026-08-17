@@ -1,0 +1,36 @@
+title = "File download"
+url = "/download/:id/:name"
+is_hidden = 0
+==
+<?php
+use System\Models\File;
+
+/**
+ * Pretty download route: /download/{file id}/{original file name}
+ *
+ * October stores attachments under a hashed disk name, so linking straight to
+ * $file->path made Matomo report meaningless names such as
+ * "5f3a1c9e0b4d7f2a8c6e.pdf". Linking through this page keeps the original file
+ * name in the URL, which is what Matomo records for the download, and then
+ * hands the transfer back to the web server so large files are still served
+ * statically (range requests, caching, no PHP worker held open).
+ *
+ * The :name segment is decorative for analytics only - the file is always
+ * resolved by :id.
+ */
+function onStart()
+{
+	$id = (int) $this->param('id');
+
+	$file = $id ? File::find($id) : null;
+
+	// Only files that are already reachable through their public storage URL
+	// may be served here, so this route exposes nothing new.
+	if (!$file || !$file->isPublic()) {
+		abort(404);
+	}
+
+	return Redirect::to($file->getPath());
+}
+?>
+==
